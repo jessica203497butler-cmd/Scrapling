@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "worldcup2026-agent"
+version = "0.1.0"
+description = "2026 美加墨世界杯比赛分析工具智能体（基于 Scrapling 的实时数据抓取 + 内置知识库）"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BSD-3-Clause" }
+keywords = ["world-cup", "2026", "football", "soccer", "analysis", "agent", "scrapling"]
+
+# 核心分析功能仅依赖标准库；实时抓取需要 scrapling。
+dependencies = []
+
+[project.optional-dependencies]
+live = ["scrapling"]
+test = ["pytest"]
+
+[project.scripts]
+worldcup2026 = "worldcup2026.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["worldcup2026*"]
+
+# 独立的 pytest 配置：从本目录运行时使用，与主仓库的 pytest.ini 互不影响。
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
